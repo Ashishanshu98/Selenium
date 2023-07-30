@@ -1,0 +1,50 @@
+package Selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginTesting {
+    public static void main(String[] args) 
+    {
+      
+        System.setProperty("webdriver.chrome.driver", "C:/Users/admin34/Downloads/chromedriver_win32/chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+
+        String loginUrl = "https://login.salesforce.com/";
+        String username = "ashishanshu143@proton.me";
+        String password = "Salesforce@9838144772";
+
+        try {
+            driver.get(loginUrl);
+            WebElement usernameField = driver.findElement(By.id("username"));  
+            WebElement passwordField = driver.findElement(By.id("password"));       
+            WebElement loginButton = driver.findElement(By.id("Login"));
+
+            usernameField.sendKeys(username);
+            passwordField.sendKeys(password);
+
+            loginButton.click();
+
+            Thread.sleep(5000);
+
+            if (driver.getCurrentUrl().contains("SetupOneHome")) 
+            { 
+                System.out.println("Login successful!");
+            } else 
+            {
+                System.out.println("Login failed!");
+            }
+
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+        } finally 
+        {
+            driver.quit();
+        }
+    }
+}
+
