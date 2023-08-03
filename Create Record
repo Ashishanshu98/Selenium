@@ -1,0 +1,70 @@
+package org.example;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class App {
+    public static void main(String[] args)
+    {
+
+        System.setProperty("web-driver.chrome.driver", "C:/Users/admin34/Downloads/chromedriver_win32/chromedriver.exe");
+
+        WebDriver driver = new ChromeDriver();
+        String loginUrl = "https://login.salesforce.com/";
+        String username = "Username";
+        String password = "Password";
+        String acc = "Accounts";
+        By searchBox = By.xpath("//input[@class=\"slds-input\" and @id=\"input-99\"]");
+
+
+        try {
+            driver.get(loginUrl);
+            WebElement usernameField = driver.findElement(By.id("username"));
+            WebElement passwordField = driver.findElement(By.id("password"));
+            WebElement loginButton = driver.findElement(By.id("Login"));
+            usernameField.sendKeys(username);
+            passwordField.sendKeys(password);
+            loginButton.click();
+
+            if (driver.getCurrentUrl().contains("SetupOneHome"))
+            {
+                System.out.println("Login successful!");
+                Thread.sleep(5000);
+
+                driver.findElement(By.className("slds-icon-waffle")).click();
+                Thread.sleep(3000);
+
+                WebElement searchAccount =  driver.findElement(searchBox);
+                searchAccount.sendKeys(acc);
+                Thread.sleep(2000);
+                searchAccount.sendKeys(Keys.ENTER);
+                Thread.sleep(5000);
+
+                WebElement NewButton = driver.findElement(By.xpath("//a[@title=\"New\"]"));
+                NewButton.click();
+                Thread.sleep(2000);
+
+                WebElement AccountName = driver.findElement(By.xpath("//input[@class = \"slds-input\" and @name = \"Name\" or @id = \"input-316\"]"));
+                AccountName.sendKeys("Revolve Softech LLC");
+                WebElement PhoneNumber = driver.findElement(By.xpath("//input[@class = \"slds-input\" and @name = \"Phone\" or @id = \"input-318\"]"));
+                PhoneNumber.sendKeys("9876543210");
+
+                WebElement SaveAccount = driver.findElement(By.xpath("//button[@class = \"slds-button slds-button_brand\" and @name = \"SaveEdit\"]"));
+                SaveAccount.click();
+                Thread.sleep(5000);
+
+            } else
+            {
+                System.out.println("Login failed!");
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
+}
