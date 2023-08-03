@@ -14,8 +14,8 @@ public class LoginTesting {
         WebDriver driver = new ChromeDriver();
 
         String loginUrl = "https://login.salesforce.com/";
-        String username = "ashishanshu143@proton.me";
-        String password = "Salesforce@9838144772";
+        String username = "OriginalUsername";
+        String password = "OriginalPassword";
 
         try {
             driver.get(loginUrl);
